@@ -13,13 +13,6 @@ import { copyFrom } from './dom.js';
 
   function show(el){ if(el) el.hidden=false; }
   function hide(el){ if(el) el.hidden=true; }
-  function fmtTtl(s){
-    s=parseInt(s,10);
-    if(s>=86400){ var d=s/86400; return d+' day'+(d>1?'s':''); }
-    if(s>=3600){ var h=s/3600; return h+' hour'+(h>1?'s':''); }
-    if(s>=60){ var m=s/60; return m+' minute'+(m>1?'s':''); }
-    return s+' seconds';
-  }
   function setType(t){
     secretType=t;
     if(typeText) typeText.setAttribute('aria-pressed', t==='text'?'true':'false');
@@ -27,21 +20,6 @@ import { copyFrom } from './dom.js';
   }
   if(typeText) typeText.addEventListener('click', function(){ setType('text'); });
   if(typeJson) typeJson.addEventListener('click', function(){ setType('json'); });
-
-  // Keep the receipt facts in sync with the composer before a link exists.
-  function opensLabel(n){ return n>1 ? (n+' opens') : '1 open'; }
-  function syncFacts(){
-    var ttlSel=document.getElementById('ttl');
-    var opensEl=document.getElementById('opens');
-    var n=opensEl ? (parseInt(opensEl.value,10)||1) : 1;
-    var fo=document.getElementById('factOpens'); if(fo) fo.textContent=opensLabel(n);
-    var ft=document.getElementById('factTtl'); if(ft && ttlSel) ft.textContent=fmtTtl(ttlSel.value);
-    var note=document.getElementById('composer-facts');
-    if(note && ttlSel){ note.textContent='Expires in '+fmtTtl(ttlSel.value)+' · '+opensLabel(n); }
-  }
-  var ttlSel=document.getElementById('ttl'); if(ttlSel) ttlSel.addEventListener('change', syncFacts);
-  var opensEl0=document.getElementById('opens'); if(opensEl0) opensEl0.addEventListener('change', syncFacts);
-  syncFacts();
 
   // Generate a random 6-letter passphrase (readable set, no l/o to avoid confusion).
   function randomPassphrase(){
@@ -57,13 +35,14 @@ import { copyFrom } from './dom.js';
     if(p){ p.value=randomPassphrase(); p.focus(); }
   });
 
-  // More options disclosure (Opens / Passphrase).
-  var moreBtn=document.getElementById('more-toggle'), moreOpts=document.getElementById('more-opts');
-  if(moreBtn && moreOpts) moreBtn.addEventListener('click', function(){
-    var opening=moreOpts.hidden;
-    moreOpts.hidden=!opening;
-    moreBtn.setAttribute('aria-expanded', opening?'true':'false');
-    moreBtn.textContent = opening ? '− Options' : '+ Options';
+  // Passphrase disclosure (kept light — it's the one extra option anon can set).
+  var passToggle=document.getElementById('pass-toggle'), passWrap=document.getElementById('pass-wrap');
+  if(passToggle && passWrap) passToggle.addEventListener('click', function(){
+    var opening=passWrap.hidden;
+    passWrap.hidden=!opening;
+    passToggle.setAttribute('aria-expanded', opening?'true':'false');
+    passToggle.textContent = opening ? '− Passphrase' : '+ Add a passphrase';
+    if(opening){ var p=document.getElementById('passphrase'); if(p) p.focus(); }
   });
 
   // Auto-grow the composer: starts at its compact min-height and expands with
@@ -114,8 +93,9 @@ import { copyFrom } from './dom.js';
       var base = data.url || (location.origin + '/s/' + data.id);
       var link = base + '#k=' + e.keyFragment;
 
-      // Collapse the composer and show only the result.
+      // Collapse the composer (and its account note) and show only the result.
       hide(form);
+      hide(document.querySelector('.composer-note'));
       show(document.getElementById('receipt'));
       var linkEl=document.getElementById('link');
       linkEl.textContent=link;

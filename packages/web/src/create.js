@@ -41,7 +41,7 @@ import { copyFrom } from './dom.js';
     var opening=passWrap.hidden;
     passWrap.hidden=!opening;
     passToggle.setAttribute('aria-expanded', opening?'true':'false');
-    passToggle.textContent = opening ? '− Passphrase' : '+ Add a passphrase';
+    passToggle.textContent = opening ? '− Add a passphrase' : '+ Add a passphrase';
     if(opening){ var p=document.getElementById('passphrase'); if(p) p.focus(); }
   });
 

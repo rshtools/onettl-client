@@ -1,0 +1,21 @@
+{
+  "name": "onettl",
+  "version": "0.1.1",
+  "description": "One-time secret links from your terminal — zero-knowledge, encrypted on your machine.",
+  "bin": { "onettl": "onettl.cjs" },
+  "files": ["onettl.cjs", "README.md", "LICENSE"],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "keywords": ["secret", "secrets", "one-time", "share", "password", "env", "cli", "zero-knowledge", "encryption", "onettl"],
+  "author": "OneTTL",
+  "license": "MIT",
+  "homepage": "https://onettl.com",
+  "bugs": { "url": "https://onettl.com", "email": "hello@onettl.com" },
+  "devDependencies": {
+    "@onettl/crypto": "^1.0.0",
+    "esbuild": "^0.24.2"
+  }
+}

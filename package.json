@@ -1,0 +1,23 @@
+{
+  "name": "onettl-client",
+  "version": "0.0.0",
+  "private": true,
+  "description": "OneTTL client trust surface — the zero-knowledge crypto core, the web reference client, and the CLI. Everything that runs on your machine; nothing server-side.",
+  "homepage": "https://onettl.com",
+  "license": "MIT",
+  "workspaces": [
+    "packages/crypto",
+    "packages/web",
+    "packages/cli"
+  ],
+  "scripts": {
+    "build:cli": "node packages/cli/build.mjs",
+    "test": "node --test packages/crypto/test/*.test.mjs packages/cli/test/*.test.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

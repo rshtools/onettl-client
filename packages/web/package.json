@@ -1,0 +1,16 @@
+{
+  "name": "@onettl/web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OneTTL web reference client — the exact create/view/dom ES modules onettl.com serves at /static/*.js. Part of the zero-knowledge trust surface; not published to npm.",
+  "homepage": "https://onettl.com",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/create.js",
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@onettl/crypto": "^1.0.0"
+  }
+}

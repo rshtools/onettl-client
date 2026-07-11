@@ -1,0 +1,35 @@
+{
+  "name": "@onettl/crypto",
+  "version": "1.0.0",
+  "description": "OneTTL zero-knowledge crypto core — one isomorphic AES-GCM-256 / PBKDF2-600k module that runs byte-for-byte identically in the browser and in Node 18+.",
+  "homepage": "https://onettl.com",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/crypto.mjs",
+  "exports": {
+    ".": "./src/crypto.mjs",
+    "./src/crypto.mjs": "./src/crypto.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "reference",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "keywords": [
+    "crypto",
+    "encryption",
+    "zero-knowledge",
+    "aes-gcm",
+    "pbkdf2",
+    "webcrypto",
+    "isomorphic",
+    "onettl"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
